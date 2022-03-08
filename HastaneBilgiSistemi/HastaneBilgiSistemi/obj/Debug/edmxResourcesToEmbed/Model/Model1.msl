@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HastaneTabaniModelStoreContainer" CdmEntityContainer="HastaneTabaniEntities">
+    <EntitySetMapping Name="TblBolum">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblBolum">
+        <MappingFragment StoreEntitySet="TblBolum">
+          <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+          <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblDoktor">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblDoktor">
+        <MappingFragment StoreEntitySet="TblDoktor">
+          <ScalarProperty Name="DoktorID" ColumnName="DoktorID" />
+          <ScalarProperty Name="Doktor" ColumnName="Doktor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblHasta">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblHasta">
+        <MappingFragment StoreEntitySet="TblHasta">
+          <ScalarProperty Name="HastaID" ColumnName="HastaID" />
+          <ScalarProperty Name="TC" ColumnName="TC" />
+          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblLaboratuvar">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblLaboratuvar">
+        <MappingFragment StoreEntitySet="TblLaboratuvar">
+          <ScalarProperty Name="Talep" ColumnName="Talep" />
+          <ScalarProperty Name="LaboratuvarID" ColumnName="LaboratuvarID" />
+          <ScalarProperty Name="Doktor" ColumnName="Doktor" />
+          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
+          <ScalarProperty Name="Sonuc" ColumnName="Sonuc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblMuayene">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblMuayene">
+        <MappingFragment StoreEntitySet="TblMuayene">
+          <ScalarProperty Name="MuayeneID" ColumnName="MuayeneID" />
+          <ScalarProperty Name="Doktor" ColumnName="Doktor" />
+          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
+          <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+          <ScalarProperty Name="Oyku" ColumnName="Oyku" />
+          <ScalarProperty Name="Teshis" ColumnName="Teshis" />
+          <ScalarProperty Name="Tedavi" ColumnName="Tedavi" />
+          <ScalarProperty Name="Ilaclar" ColumnName="Ilaclar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblAdmin">
+      <EntityTypeMapping TypeName="HastaneTabaniModel.TblAdmin">
+        <MappingFragment StoreEntitySet="TblAdmin">
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="Kullanici" ColumnName="Kullanici" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

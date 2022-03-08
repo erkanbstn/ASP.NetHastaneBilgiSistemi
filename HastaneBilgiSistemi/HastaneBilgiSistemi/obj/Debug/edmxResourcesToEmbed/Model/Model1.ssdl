@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HastaneTabaniModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TblAdmin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Kullanici" Type="varchar" MaxLength="100" />
+    <Property Name="Sifre" Type="varchar" MaxLength="50" />
+    <Property Name="Rol" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TblBolum">
+    <Key>
+      <PropertyRef Name="BolumID" />
+    </Key>
+    <Property Name="BolumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bolum" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblDoktor">
+    <Key>
+      <PropertyRef Name="DoktorID" />
+    </Key>
+    <Property Name="DoktorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Doktor" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="TblHasta">
+    <Key>
+      <PropertyRef Name="HastaID" />
+    </Key>
+    <Property Name="HastaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TC" Type="varchar" MaxLength="11" />
+    <Property Name="Hasta" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="TblLaboratuvar">
+    <Key>
+      <PropertyRef Name="LaboratuvarID" />
+    </Key>
+    <Property Name="LaboratuvarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Doktor" Type="int" />
+    <Property Name="Hasta" Type="int" />
+    <Property Name="Talep" Type="varchar(max)" />
+    <Property Name="Sonuc" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="TblMuayene">
+    <Key>
+      <PropertyRef Name="MuayeneID" />
+    </Key>
+    <Property Name="MuayeneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Doktor" Type="int" />
+    <Property Name="Hasta" Type="int" />
+    <Property Name="Bolum" Type="int" />
+    <Property Name="Oyku" Type="varchar(max)" />
+    <Property Name="Teshis" Type="varchar(max)" />
+    <Property Name="Tedavi" Type="varchar(max)" />
+    <Property Name="Ilaclar" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK_TblLaboratuvar_TblDoktor">
+    <End Role="TblDoktor" Type="Self.TblDoktor" Multiplicity="0..1" />
+    <End Role="TblLaboratuvar" Type="Self.TblLaboratuvar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDoktor">
+        <PropertyRef Name="DoktorID" />
+      </Principal>
+      <Dependent Role="TblLaboratuvar">
+        <PropertyRef Name="Doktor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblLaboratuvar_TblHasta">
+    <End Role="TblHasta" Type="Self.TblHasta" Multiplicity="0..1" />
+    <End Role="TblLaboratuvar" Type="Self.TblLaboratuvar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblHasta">
+        <PropertyRef Name="HastaID" />
+      </Principal>
+      <Dependent Role="TblLaboratuvar">
+        <PropertyRef Name="Hasta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblMuayene_TblBolum">
+    <End Role="TblBolum" Type="Self.TblBolum" Multiplicity="0..1" />
+    <End Role="TblMuayene" Type="Self.TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblBolum">
+        <PropertyRef Name="BolumID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Bolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblMuayene_TblDoktor">
+    <End Role="TblDoktor" Type="Self.TblDoktor" Multiplicity="0..1" />
+    <End Role="TblMuayene" Type="Self.TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDoktor">
+        <PropertyRef Name="DoktorID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Doktor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblMuayene_TblHasta">
+    <End Role="TblHasta" Type="Self.TblHasta" Multiplicity="0..1" />
+    <End Role="TblMuayene" Type="Self.TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblHasta">
+        <PropertyRef Name="HastaID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Hasta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HastaneTabaniModelStoreContainer">
+    <EntitySet Name="TblAdmin" EntityType="Self.TblAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblBolum" EntityType="Self.TblBolum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblDoktor" EntityType="Self.TblDoktor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblHasta" EntityType="Self.TblHasta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblLaboratuvar" EntityType="Self.TblLaboratuvar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblMuayene" EntityType="Self.TblMuayene" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TblLaboratuvar_TblDoktor" Association="Self.FK_TblLaboratuvar_TblDoktor">
+      <End Role="TblDoktor" EntitySet="TblDoktor" />
+      <End Role="TblLaboratuvar" EntitySet="TblLaboratuvar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblLaboratuvar_TblHasta" Association="Self.FK_TblLaboratuvar_TblHasta">
+      <End Role="TblHasta" EntitySet="TblHasta" />
+      <End Role="TblLaboratuvar" EntitySet="TblLaboratuvar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblMuayene_TblBolum" Association="Self.FK_TblMuayene_TblBolum">
+      <End Role="TblBolum" EntitySet="TblBolum" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblMuayene_TblDoktor" Association="Self.FK_TblMuayene_TblDoktor">
+      <End Role="TblDoktor" EntitySet="TblDoktor" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblMuayene_TblHasta" Association="Self.FK_TblMuayene_TblHasta">
+      <End Role="TblHasta" EntitySet="TblHasta" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

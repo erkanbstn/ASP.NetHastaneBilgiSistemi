@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HastaneSistemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TblAdmin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Kullanici" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TblBolum">
+    <Key>
+      <PropertyRef Name="BolumID" />
+    </Key>
+    <Property Name="BolumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bolum" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TblMuayene" Relationship="Self.FK_TblMuayene_TblBolum" FromRole="TblBolum" ToRole="TblMuayene" />
+  </EntityType>
+  <EntityType Name="TblDoktor">
+    <Key>
+      <PropertyRef Name="DoktorID" />
+    </Key>
+    <Property Name="DoktorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doktor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblLaboratuvar" Relationship="Self.FK_TblLaboratuvar_TblDoktor" FromRole="TblDoktor" ToRole="TblLaboratuvar" />
+    <NavigationProperty Name="TblMuayene" Relationship="Self.FK_TblMuayene_TblDoktor" FromRole="TblDoktor" ToRole="TblMuayene" />
+  </EntityType>
+  <EntityType Name="TblLaboratuvar">
+    <Key>
+      <PropertyRef Name="LaboratuvarID" />
+    </Key>
+    <Property Name="LaboratuvarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doktor" Type="Int32" />
+    <Property Name="Hasta" Type="Int32" />
+    <Property Name="Talep" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sonuc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblDoktor" Relationship="Self.FK_TblLaboratuvar_TblDoktor" FromRole="TblLaboratuvar" ToRole="TblDoktor" />
+    <NavigationProperty Name="TblHasta" Relationship="HastaneSistemModel.FK_TblLaboratuvar_TblHasta" FromRole="TblLaboratuvar" ToRole="TblHasta" />
+  </EntityType>
+  <EntityType Name="TblMuayene">
+    <Key>
+      <PropertyRef Name="MuayeneID" />
+    </Key>
+    <Property Name="MuayeneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doktor" Type="Int32" />
+    <Property Name="Hasta" Type="Int32" />
+    <Property Name="Bolum" Type="Int32" />
+    <Property Name="Oyku" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Teshis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Tedavi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Ilaclar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblBolum" Relationship="Self.FK_TblMuayene_TblBolum" FromRole="TblMuayene" ToRole="TblBolum" />
+    <NavigationProperty Name="TblDoktor" Relationship="Self.FK_TblMuayene_TblDoktor" FromRole="TblMuayene" ToRole="TblDoktor" />
+    <NavigationProperty Name="TblHasta" Relationship="HastaneSistemModel.FK_TblMuayene_TblHasta" FromRole="TblMuayene" ToRole="TblHasta" />
+  </EntityType>
+  <Association Name="FK_TblMuayene_TblBolum">
+    <End Role="TblBolum" Type="Self.TblBolum" Multiplicity="0..1" />
+    <End Role="TblMuayene" Type="Self.TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblBolum">
+        <PropertyRef Name="BolumID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Bolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblLaboratuvar_TblDoktor">
+    <End Role="TblDoktor" Type="Self.TblDoktor" Multiplicity="0..1" />
+    <End Role="TblLaboratuvar" Type="Self.TblLaboratuvar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDoktor">
+        <PropertyRef Name="DoktorID" />
+      </Principal>
+      <Dependent Role="TblLaboratuvar">
+        <PropertyRef Name="Doktor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblMuayene_TblDoktor">
+    <End Role="TblDoktor" Type="Self.TblDoktor" Multiplicity="0..1" />
+    <End Role="TblMuayene" Type="Self.TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblDoktor">
+        <PropertyRef Name="DoktorID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Doktor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HastaneSistemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblAdmin" EntityType="Self.TblAdmin" />
+    <EntitySet Name="TblBolum" EntityType="Self.TblBolum" />
+    <EntitySet Name="TblDoktor" EntityType="Self.TblDoktor" />
+    <EntitySet Name="TblLaboratuvar" EntityType="Self.TblLaboratuvar" />
+    <EntitySet Name="TblMuayene" EntityType="Self.TblMuayene" />
+    <AssociationSet Name="FK_TblMuayene_TblBolum" Association="Self.FK_TblMuayene_TblBolum">
+      <End Role="TblBolum" EntitySet="TblBolum" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblLaboratuvar_TblDoktor" Association="Self.FK_TblLaboratuvar_TblDoktor">
+      <End Role="TblDoktor" EntitySet="TblDoktor" />
+      <End Role="TblLaboratuvar" EntitySet="TblLaboratuvar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblMuayene_TblDoktor" Association="Self.FK_TblMuayene_TblDoktor">
+      <End Role="TblDoktor" EntitySet="TblDoktor" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+    <EntitySet Name="TblHasta" EntityType="HastaneSistemModel.TblHasta" />
+    <AssociationSet Name="FK_TblLaboratuvar_TblHasta" Association="HastaneSistemModel.FK_TblLaboratuvar_TblHasta">
+      <End Role="TblHasta" EntitySet="TblHasta" />
+      <End Role="TblLaboratuvar" EntitySet="TblLaboratuvar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblMuayene_TblHasta" Association="HastaneSistemModel.FK_TblMuayene_TblHasta">
+      <End Role="TblHasta" EntitySet="TblHasta" />
+      <End Role="TblMuayene" EntitySet="TblMuayene" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TblHasta">
+    <Key>
+      <PropertyRef Name="HastaID" />
+    </Key>
+    <Property Name="HastaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Hasta" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cinsiyet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblLaboratuvar" Relationship="HastaneSistemModel.FK_TblLaboratuvar_TblHasta" FromRole="TblHasta" ToRole="TblLaboratuvar" />
+    <NavigationProperty Name="TblMuayene" Relationship="HastaneSistemModel.FK_TblMuayene_TblHasta" FromRole="TblHasta" ToRole="TblMuayene" />
+  </EntityType>
+  <Association Name="FK_TblLaboratuvar_TblHasta">
+    <End Type="HastaneSistemModel.TblHasta" Role="TblHasta" Multiplicity="0..1" />
+    <End Type="HastaneSistemModel.TblLaboratuvar" Role="TblLaboratuvar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblHasta">
+        <PropertyRef Name="HastaID" />
+      </Principal>
+      <Dependent Role="TblLaboratuvar">
+        <PropertyRef Name="Hasta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblMuayene_TblHasta">
+    <End Type="HastaneSistemModel.TblHasta" Role="TblHasta" Multiplicity="0..1" />
+    <End Type="HastaneSistemModel.TblMuayene" Role="TblMuayene" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblHasta">
+        <PropertyRef Name="HastaID" />
+      </Principal>
+      <Dependent Role="TblMuayene">
+        <PropertyRef Name="Hasta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
